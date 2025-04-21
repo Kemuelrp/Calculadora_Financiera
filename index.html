@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculadora Financiera Moderna</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #111;
+      color: #fff;
+      margin: 0;
+      padding: 20px;
+    }
+
+    h1 {
+      text-align: center;
+      color: #e74c3c;
+      margin-bottom: 30px;
+    }
+
+    .section {
+      background: #1c1c1c;
+      border-radius: 16px;
+      box-shadow: 0 0 15px rgba(231, 76, 60, 0.4);
+      padding: 20px;
+      margin-bottom: 30px;
+      max-width: 600px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    h2 {
+      color: #e74c3c;
+      border-bottom: 1px solid #e74c3c;
+      padding-bottom: 10px;
+      margin-bottom: 20px;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+    }
+
+    input, button, select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+    }
+
+    input {
+      background-color: #2c2c2c;
+      color: white;
+      border: 1px solid #444;
+    }
+
+    button {
+      background-color: #e74c3c;
+      color: white;
+      margin-top: 15px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background-color 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #c0392b;
+    }
+
+    .result {
+      margin-top: 15px;
+      background: #2c2c2c;
+      padding: 12px;
+      border-radius: 8px;
+      border: 1px solid #444;
+    }
+
+  </style>
+</head>
+<body>
+
+  <h1>Calculadora Financiera</h1>
+
+  <!-- Cálculo de Fechas -->
+  <div class="section">
+    <h2>📅 Cálculo de Días</h2>
+    <label>Fecha de inicio:</label>
+    <input type="date" id="fechaInicio">
+    <label>Fecha de fin:</label>
+    <input type="date" id="fechaFin">
+    <label>Tipo de año:</label>
+    <select id="tipoAnio">
+      <option value="360">Año comercial (360 días)</option>
+      <option value="365">Año calendario (365 días)</option>
+    </select>
+    <button onclick="calcularDias()">Calcular</button>
+    <div class="result" id="resultadoDias"></div>
+  </div>
+
+  <!-- Interés Simple -->
+  <div class="section">
+    <h2>💰 Interés Simple</h2>
+    <label>Capital (P):</label>
+    <input type="number" id="capitalSimple" placeholder="Ej: 1000">
+    <label>Tasa de interés (% anual):</label>
+    <input type="number" id="tasaSimple" placeholder="Ej: 5">
+    <label>Tiempo (años):</label>
+    <input type="number" id="tiempoSimple" placeholder="Ej: 2">
+    <button onclick="calcularInteresSimple()">Calcular</button>
+    <div class="result" id="resultadoSimple"></div>
+  </div>
+
+  <!-- Interés Compuesto -->
+  <div class="section">
+    <h2>📈 Interés Compuesto</h2>
+    <label>Capital (P):</label>
+    <input type="number" id="capitalComp" placeholder="Ej: 1000">
+    <label>Tasa de interés (% anual):</label>
+    <input type="number" id="tasaComp" placeholder="Ej: 5">
+    <label>Tiempo (años):</label>
+    <input type="number" id="tiempoComp" placeholder="Ej: 3">
+    <button onclick="calcularInteresCompuesto()">Calcular</button>
+    <div class="result" id="resultadoComp"></div>
+  </div>
+
+  <!-- Tasa de Descuento -->
+  <div class="section">
+    <h2>📉 Tasa de Descuento</h2>
+    <label>Monto (M):</label>
+    <input type="number" id="montoDescuento" placeholder="Ej: 1000">
+    <label>Tasa de descuento (%):</label>
+    <input type="number" id="tasaDescuento" placeholder="Ej: 5">
+    <label>Tiempo (años):</label>
+    <input type="number" id="tiempoDescuento" placeholder="Ej: 2">
+    <label>Tipo de año:</label>
+    <select id="tipoAnioDescuento">
+      <option value="360">Año comercial (360 días)</option>
+      <option value="365">Año calendario (365 días)</option>
+    </select>
+    <button onclick="calcularDescuento()">Calcular</button>
+    <div class="result" id="resultadoDescuento"></div>
+  </div>
+
+  <!-- Fecha Focal -->
+  <div class="section">
+    <h2>📌 Fecha Focal</h2>
+    <label>Capital (P):</label>
+    <input type="number" id="capitalFocal" placeholder="Ej: 1000">
+    <label>Fecha focal:</label>
+    <input type="date" id="fechaFocal">
+    <label>Tiempo (años):</label>
+    <input type="number" id="tiempoFocal" placeholder="Ej: 2">
+    <label>Tipo de cálculo:</label>
+    <select id="tipoCalculoFocal">
+      <option value="valorPresente">Valor presente</option>
+      <option value="valorFuturo">Valor futuro</option>
+    </select>
+    <button onclick="calcularFechaFocal()">Calcular</button>
+    <div class="result" id="resultadoFocal"></div>
+  </div>
+
+  <!-- Pagaré -->
+  <div class="section">
+    <h2>📄 Pagaré</h2>
+    <label>Capital (P):</label>
+    <input type="number" id="capitalPagare" placeholder="Ej: 1000">
+    <label>Tasa de interés (%):</label>
+    <input type="number" id="tasaPagare" placeholder="Ej: 5">
+    <label>Tiempo (años):</label>
+    <input type="number" id="tiempoPagare" placeholder="Ej: 3">
+    <label>Tipo de año:</label>
+    <select id="tipoAnioPagare">
+      <option value="360">Año comercial (360 días)</option>
+      <option value="365">Año calendario (365 días)</option>
+    </select>
+    <button onclick="calcularPagare()">Calcular</button>
+    <div class="result" id="resultadoPagare"></div>
+  </div>
+
+  <script>
+    function calcularDias() {
+      const inicio = new Date(document.getElementById("fechaInicio").value);
+      const fin = new Date(document.getElementById("fechaFin").value);
+      const tipoAnio = parseInt(document.getElementById("tipoAnio").value);
+
+      if (isNaN(inicio) || isNaN(fin)) {
+        document.getElementById("resultadoDias").innerText = "Completa ambas fechas.";
+        return;
+      }
+
+      const diasExactos = Math.floor((fin - inicio) / (1000 * 60 * 60 * 24));
+
+      let diasOrdinarios;
+      if (tipoAnio === 360) {
+        diasOrdinarios = ((fin.getFullYear() - inicio.getFullYear()) * 360) + 
+                         ((fin.getMonth() - inicio.getMonth()) * 30) + 
+                         (fin.getDate() - inicio.getDate());
+      } else {
+        diasOrdinarios = (fin - inicio) / (1000 * 60 * 60 * 24);
+      }
+
+      document.getElementById("resultadoDias").innerHTML =
+        `Tiempo exacto: ${diasExactos} días<br>Tiempo ordinario: ${diasOrdinarios} días`;
+    }
+
+    function calcularInteresSimple() {
+      const P = parseFloat(document.getElementById("capitalSimple").value);
+      const r = parseFloat(document.getElementById("tasaSimple").value) / 100;
+      const t = parseFloat(document.getElementById("tiempoSimple").value);
+
+      if (isNaN(P) || isNaN(r) || isNaN(t)) {
+        document.getElementById("resultadoSimple").innerText = "Completa todos los campos.";
+        return;
+      }
+
+      const I = P * r * t;
+      const M = P + I;
+
+      document.getElementById("resultadoSimple").innerHTML =
+        `Interés generado: $${I.toFixed(2)}<br>Monto total: $${M.toFixed(2)}`;
+    }
+
+    function calcularInteresCompuesto() {
+      const P = parseFloat(document.getElementById("capitalComp").value);
+      const r = parseFloat(document.getElementById("tasaComp").value) / 100;
+      const t = parseFloat(document.getElementById("tiempoComp").value);
+
+      if (isNaN(P) || isNaN(r) || isNaN(t)) {
+        document.getElementById("resultadoComp").innerText = "Completa todos los campos.";
+        return;
+      }
+
+      const M = P * Math.pow(1 + r, t);
+      const I = M - P;
+
+      document.getElementById("resultadoComp").innerHTML =
+        `Interés generado: $${I.toFixed(2)}<br>Monto total: $${M.toFixed(2)}`;
+    }
+
+    function calcularDescuento() {
+      const M = parseFloat(document.getElementById("montoDescuento").value);
+      const d = parseFloat(document.getElementById("tasaDescuento").value) / 100;
+      const t = parseFloat(document.getElementById("tiempoDescuento").value);
+      const tipoAnio = parseInt(document.getElementById("tipoAnioDescuento").value);
+
+      if (isNaN(M) || isNaN(d) || isNaN(t)) {
+        document.getElementById("resultadoDescuento").innerText = "Completa todos los campos.";
+        return;
+      }
+
+      let descuento;
+      if (tipoAnio === 360) {
+        descuento = M * d * t / (1 + d * t);
+      } else {
+        descuento = M * d * t;
+      }
+
+      document.getElementById("resultadoDescuento").innerHTML =
+        `Descuento: $${descuento.toFixed(2)}`;
+    }
+
+    function calcularFechaFocal() {
+      const P = parseFloat(document.getElementById("capitalFocal").value);
+      const t = parseFloat(document.getElementById("tiempoFocal").value);
+      const tipoCalculo = document.getElementById("tipoCalculoFocal").value;
+      
+      if (isNaN(P) || isNaN(t)) {
+        document.getElementById("resultadoFocal").innerText = "Completa todos los campos.";
+        return;
+      }
+
+      let resultado;
+      if (tipoCalculo === "valorPresente") {
+        resultado = P / Math.pow(1 + 0.05, t);  // Tasa de 5% para ejemplo
+      } else {
+        resultado = P * Math.pow(1 + 0.05, t);  // Tasa de 5% para ejemplo
+      }
+
+      document.getElementById("resultadoFocal").innerHTML =
+        `Resultado: $${resultado.toFixed(2)}`;
+    }
+
+    function calcularPagare() {
+      const P = parseFloat(document.getElementById("capitalPagare").value);
+      const t = parseFloat(document.getElementById("tiempoPagare").value);
+      const r = parseFloat(document.getElementById("tasaPagare").value) / 100;
+      const tipoAnio = parseInt(document.getElementById("tipoAnioPagare").value);
+
+      if (isNaN(P) || isNaN(t) || isNaN(r)) {
+        document.getElementById("resultadoPagare").innerText = "Completa todos los campos.";
+        return;
+      }
+
+      const M = P * Math.pow(1 + r, t);
+      document.getElementById("resultadoPagare").innerHTML =
+        `Monto total: $${M.toFixed(2)}`;
+    }
+  </script>
+
+</body>
+</html>
