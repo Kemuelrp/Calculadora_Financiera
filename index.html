@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Calculadora Financiera Moderna</title>
   <style>
     body {
@@ -43,7 +43,9 @@
       font-weight: bold;
     }
 
-    input, button, select {
+    input,
+    button,
+    select {
       width: 100%;
       padding: 10px;
       margin-top: 5px;
@@ -78,25 +80,31 @@
       border-radius: 8px;
       border: 1px solid #444;
     }
-
   </style>
 </head>
 <body>
-
   <h1>Calculadora Financiera</h1>
 
-  <!-- Cálculo de Fechas -->
+  <!-- Cálculo de Días -->
   <div class="section">
     <h2>📅 Cálculo de Días</h2>
     <label>Fecha de inicio:</label>
-    <input type="date" id="fechaInicio">
+    <input type="date" id="fechaInicio" />
     <label>Fecha de fin:</label>
-    <input type="date" id="fechaFin">
+    <input type="date" id="fechaFin" />
     <label>Tipo de año:</label>
     <select id="tipoAnio">
       <option value="360">Año comercial (360 días)</option>
       <option value="365">Año calendario (365 días)</option>
     </select>
+    <label>Días por año bisiesto a considerar:</label>
+    <input
+      type="number"
+      id="diasBisiesto"
+      placeholder="Ej: 1 o 0"
+      min="0"
+      value="0"
+    />
     <button onclick="calcularDias()">Calcular</button>
     <div class="result" id="resultadoDias"></div>
   </div>
@@ -105,11 +113,11 @@
   <div class="section">
     <h2>💰 Interés Simple</h2>
     <label>Capital (P):</label>
-    <input type="number" id="capitalSimple" placeholder="Ej: 1000">
+    <input type="number" id="capitalSimple" placeholder="Ej: 1000" />
     <label>Tasa de interés (% anual):</label>
-    <input type="number" id="tasaSimple" placeholder="Ej: 5">
+    <input type="number" id="tasaSimple" placeholder="Ej: 5" />
     <label>Tiempo (años):</label>
-    <input type="number" id="tiempoSimple" placeholder="Ej: 2">
+    <input type="number" id="tiempoSimple" placeholder="Ej: 2" />
     <button onclick="calcularInteresSimple()">Calcular</button>
     <div class="result" id="resultadoSimple"></div>
   </div>
@@ -118,11 +126,11 @@
   <div class="section">
     <h2>📈 Interés Compuesto</h2>
     <label>Capital (P):</label>
-    <input type="number" id="capitalComp" placeholder="Ej: 1000">
+    <input type="number" id="capitalComp" placeholder="Ej: 1000" />
     <label>Tasa de interés (% anual):</label>
-    <input type="number" id="tasaComp" placeholder="Ej: 5">
+    <input type="number" id="tasaComp" placeholder="Ej: 5" />
     <label>Tiempo (años):</label>
-    <input type="number" id="tiempoComp" placeholder="Ej: 3">
+    <input type="number" id="tiempoComp" placeholder="Ej: 3" />
     <button onclick="calcularInteresCompuesto()">Calcular</button>
     <div class="result" id="resultadoComp"></div>
   </div>
@@ -131,11 +139,11 @@
   <div class="section">
     <h2>📉 Tasa de Descuento</h2>
     <label>Monto (M):</label>
-    <input type="number" id="montoDescuento" placeholder="Ej: 1000">
+    <input type="number" id="montoDescuento" placeholder="Ej: 1000" />
     <label>Tasa de descuento (%):</label>
-    <input type="number" id="tasaDescuento" placeholder="Ej: 5">
+    <input type="number" id="tasaDescuento" placeholder="Ej: 5" />
     <label>Tiempo (años):</label>
-    <input type="number" id="tiempoDescuento" placeholder="Ej: 2">
+    <input type="number" id="tiempoDescuento" placeholder="Ej: 2" />
     <label>Tipo de año:</label>
     <select id="tipoAnioDescuento">
       <option value="360">Año comercial (360 días)</option>
@@ -145,33 +153,30 @@
     <div class="result" id="resultadoDescuento"></div>
   </div>
 
-  <!-- Fecha Focal -->
+  <!-- Ecuaciones de Valor -->
   <div class="section">
-    <h2>📌 Fecha Focal</h2>
-    <label>Capital (P):</label>
-    <input type="number" id="capitalFocal" placeholder="Ej: 1000">
-    <label>Fecha focal:</label>
-    <input type="date" id="fechaFocal">
+    <h2>🧮 Ecuaciones de Valor</h2>
+    <label>Valor 1 (V₁):</label>
+    <input type="number" id="valor1" placeholder="Ej: 1000" />
+    <label>Valor 2 (V₂):</label>
+    <input type="number" id="valor2" placeholder="Ej: 1500" />
+    <label>Tasa de interés (%):</label>
+    <input type="number" id="tasaValor" placeholder="Ej: 5" />
     <label>Tiempo (años):</label>
-    <input type="number" id="tiempoFocal" placeholder="Ej: 2">
-    <label>Tipo de cálculo:</label>
-    <select id="tipoCalculoFocal">
-      <option value="valorPresente">Valor presente</option>
-      <option value="valorFuturo">Valor futuro</option>
-    </select>
-    <button onclick="calcularFechaFocal()">Calcular</button>
-    <div class="result" id="resultadoFocal"></div>
+    <input type="number" id="tiempoValor" placeholder="Ej: 2" />
+    <button onclick="calcularEcuacionValor()">Calcular</button>
+    <div class="result" id="resultadoValor"></div>
   </div>
 
   <!-- Pagaré -->
   <div class="section">
     <h2>📄 Pagaré</h2>
     <label>Capital (P):</label>
-    <input type="number" id="capitalPagare" placeholder="Ej: 1000">
+    <input type="number" id="capitalPagare" placeholder="Ej: 1000" />
     <label>Tasa de interés (%):</label>
-    <input type="number" id="tasaPagare" placeholder="Ej: 5">
+    <input type="number" id="tasaPagare" placeholder="Ej: 5" />
     <label>Tiempo (años):</label>
-    <input type="number" id="tiempoPagare" placeholder="Ej: 3">
+    <input type="number" id="tiempoPagare" placeholder="Ej: 3" />
     <label>Tipo de año:</label>
     <select id="tipoAnioPagare">
       <option value="360">Año comercial (360 días)</option>
@@ -185,26 +190,33 @@
     function calcularDias() {
       const inicio = new Date(document.getElementById("fechaInicio").value);
       const fin = new Date(document.getElementById("fechaFin").value);
-      const tipoAnio = parseInt(document.getElementById("tipoAnio").value);
+      const tipo = parseInt(document.getElementById("tipoAnio").value);
+      const diasBisiesto = parseInt(document.getElementById("diasBisiesto").value) || 0;
 
       if (isNaN(inicio) || isNaN(fin)) {
         document.getElementById("resultadoDias").innerText = "Completa ambas fechas.";
         return;
       }
 
-      const diasExactos = Math.floor((fin - inicio) / (1000 * 60 * 60 * 24));
+      const unDia = 1000 * 60 * 60 * 24;
+      const diasTotales = Math.floor((fin - inicio) / unDia);
 
-      let diasOrdinarios;
-      if (tipoAnio === 360) {
-        diasOrdinarios = ((fin.getFullYear() - inicio.getFullYear()) * 360) + 
-                         ((fin.getMonth() - inicio.getMonth()) * 30) + 
-                         (fin.getDate() - inicio.getDate());
+      if (tipo === 360) {
+        let diasAprox =
+          (fin.getFullYear() - inicio.getFullYear()) * 360 +
+          (fin.getMonth() - inicio.getMonth()) * 30 +
+          (fin.getDate() - inicio.getDate());
+
+        diasAprox -= diasBisiesto;
+
+        document.getElementById("resultadoDias").innerHTML =
+          `Tiempo aproximado: ${diasAprox} días`;
       } else {
-        diasOrdinarios = (fin - inicio) / (1000 * 60 * 60 * 24);
-      }
+        let diasExactos = diasTotales - diasBisiesto;
 
-      document.getElementById("resultadoDias").innerHTML =
-        `Tiempo exacto: ${diasExactos} días<br>Tiempo ordinario: ${diasOrdinarios} días`;
+        document.getElementById("resultadoDias").innerHTML =
+          `Tiempo exacto: ${diasExactos} días`;
+      }
     }
 
     function calcularInteresSimple() {
@@ -226,80 +238,4 @@
 
     function calcularInteresCompuesto() {
       const P = parseFloat(document.getElementById("capitalComp").value);
-      const r = parseFloat(document.getElementById("tasaComp").value) / 100;
-      const t = parseFloat(document.getElementById("tiempoComp").value);
-
-      if (isNaN(P) || isNaN(r) || isNaN(t)) {
-        document.getElementById("resultadoComp").innerText = "Completa todos los campos.";
-        return;
-      }
-
-      const M = P * Math.pow(1 + r, t);
-      const I = M - P;
-
-      document.getElementById("resultadoComp").innerHTML =
-        `Interés generado: $${I.toFixed(2)}<br>Monto total: $${M.toFixed(2)}`;
-    }
-
-    function calcularDescuento() {
-      const M = parseFloat(document.getElementById("montoDescuento").value);
-      const d = parseFloat(document.getElementById("tasaDescuento").value) / 100;
-      const t = parseFloat(document.getElementById("tiempoDescuento").value);
-      const tipoAnio = parseInt(document.getElementById("tipoAnioDescuento").value);
-
-      if (isNaN(M) || isNaN(d) || isNaN(t)) {
-        document.getElementById("resultadoDescuento").innerText = "Completa todos los campos.";
-        return;
-      }
-
-      let descuento;
-      if (tipoAnio === 360) {
-        descuento = M * d * t / (1 + d * t);
-      } else {
-        descuento = M * d * t;
-      }
-
-      document.getElementById("resultadoDescuento").innerHTML =
-        `Descuento: $${descuento.toFixed(2)}`;
-    }
-
-    function calcularFechaFocal() {
-      const P = parseFloat(document.getElementById("capitalFocal").value);
-      const t = parseFloat(document.getElementById("tiempoFocal").value);
-      const tipoCalculo = document.getElementById("tipoCalculoFocal").value;
-      
-      if (isNaN(P) || isNaN(t)) {
-        document.getElementById("resultadoFocal").innerText = "Completa todos los campos.";
-        return;
-      }
-
-      let resultado;
-      if (tipoCalculo === "valorPresente") {
-        resultado = P / Math.pow(1 + 0.05, t);  // Tasa de 5% para ejemplo
-      } else {
-        resultado = P * Math.pow(1 + 0.05, t);  // Tasa de 5% para ejemplo
-      }
-
-      document.getElementById("resultadoFocal").innerHTML =
-        `Resultado: $${resultado.toFixed(2)}`;
-    }
-
-    function calcularPagare() {
-      const P = parseFloat(document.getElementById("capitalPagare").value);
-      const t = parseFloat(document.getElementById("tiempoPagare").value);
-      const r = parseFloat(document.getElementById("tasaPagare").value) / 100;
-      const tipoAnio = parseInt(document.getElementById("tipoAnioPagare").value);
-
-      if (isNaN(P) || isNaN(t) || isNaN(r)) {
-        document.getElementById("resultadoPagare").innerText = "Completa todos los campos.";
-        return;
-      }
-
-      const M = P * Math.pow(1 + r, t);
-      document.getElementById("resultadoPagare").innerHTML =
-        `Monto total: $${M.toFixed(2)}`;
-    }
-  </script>
-
-</body>
-</html>
+      const r = parseFloat(document.getElementById("tasaComp").
